@@ -2,19 +2,13 @@ from random import randint
 
 
 def partition(a, left, right):
-    q = a[(left + right) // 2]
-    i = left
-    j = right
-    while True:
-        while a[i] < q:
+    q = a[right]
+    i = left - 1
+    for j in range(left, right + 1):
+        if a[j] <= q:
             i += 1
-        while a[j] > q:
-            j -= 1
-        if i >= j:
-            return j
-        a[i], a[j] = a[j], a[i]
-        i += 1
-        j -= 1
+            a[i], a[j] = a[j], a[i]
+    return i
 
 
 def kth_statistic(a, k):
@@ -25,14 +19,14 @@ def kth_statistic(a, k):
         if p == k:
             return a[p]
         elif k < p:
-            hi = p
+            hi = p - 1
         else:
             lo = p + 1
 
 
 LOW = -100
 HIGH = 100
-NUMBER = 1000
+NUMBER = 100
 
 correct_cnt = 0
 for _ in range(1, NUMBER + 1):
